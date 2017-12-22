@@ -16,7 +16,7 @@ class Display():
         self.columns = 8
 
     def show_ip(self):
-        print("my ip is 127.0.0.1")
+        print("ip: 127.0.0.1")
 
     def test(self):
         print("testing testing")
