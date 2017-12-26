@@ -1,5 +1,6 @@
 import unicornhat as unicorn
 import math
+from subprocess import check_output
 from display import text
 
 color = {
@@ -23,9 +24,11 @@ class Display():
         unicorn.rotation(self.rotation)
         unicorn.brightness(self.brightness)
         unicorn.show()
+        self.show_ip()
 
     def show_ip(self):
-        self.show_text("127.0.0.1")
+        ip = check_output(['hostname', '-I']).strip()
+        self.show_text(ip)
 
     def test(self):
         self.show_text("testing")
