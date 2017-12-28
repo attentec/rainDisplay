@@ -8,6 +8,15 @@ import subprocess
 rows = 4
 columns = 8
 
+#1234567
+heart="""
+   R R  
+  RRRRR 
+   RRR  
+    R   
+"""
+heart = [row for row in heart.split("\n")[1:rows+1]]
+
 def render_text_matrix(text, spaces):
     p = subprocess.Popen(["./display/figlet.sh", text.upper()], stdout=subprocess.PIPE)
     out, _ = p.communicate()
@@ -18,9 +27,9 @@ def render_text_matrix(text, spaces):
 
 def _get_color(char, color=(255, 255, 255)):
     if char == " ":
-	return (0, 0, 0)
+        return (0, 0, 0)
     else:
-	return color
+        return color
 
 
 def _get_multi_color(char):
@@ -34,18 +43,27 @@ def _get_multi_color(char):
         return (0, 0, 0)
     elif char in "X":
         return (255, 255, 255)
+    elif char in "R":
+        return (255, 0, 0)
     else:
         return (100, 255, 100)
 
 
-def render_matrix_offset(matrix, offset):
+def render_matrix_offset(matrix, offset, blackwhite=True):
     import unicornhat as unicorn
     unicorn.clear()
     for y in range(0, rows):
         for x in range(0, columns):
-            r, g, b = _get_color(matrix[y][x+offset])
+            if blackwhite:
+                r, g, b = _get_color(matrix[y][x+offset])
+            else:
+                r, g, b = _get_multi_color(matrix[y][x+offset])
             unicorn.set_pixel(x, y, r, g, b)
     unicorn.show()
+
+
+def show_heart():
+	self.render_matrix_offset(heart, 0, blackwhite=False)
 
 
 def show(text, loops, time_delta, spaces):
@@ -64,6 +82,9 @@ if __name__ == '__main__':
         text = "TESTING"
     if len(sys.argv) > 2:
         loops = int(sys.argv[2])
-    text_matrix = render_text_matrix(text)
+    text_matrix = render_text_matrix(text, 0)
     for row in text_matrix:
         print("OUT", row, len(row))
+    for row in heart:
+        print("OUT", row, len(row))
+
