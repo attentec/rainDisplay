@@ -10,10 +10,10 @@ columns = 8
 
 #1234567
 heart="""
-   R R  
-  RRRRR 
-   RRR  
-    R   
+  R R   
+ RRRRR  
+  RRR   
+   R    
 """
 heart = [row for row in heart.split("\n")[1:rows+1]]
 
@@ -28,6 +28,8 @@ def render_text_matrix(text, spaces):
 def _get_color(char, color=(255, 255, 255)):
     if char == " ":
         return (0, 0, 0)
+    elif char == "R":
+        return (255, 0, 0)
     else:
         return color
 
@@ -63,7 +65,7 @@ def render_matrix_offset(matrix, offset, blackwhite=True):
 
 
 def show_heart():
-	self.render_matrix_offset(heart, 0, blackwhite=False)
+    render_matrix_offset(heart, 0, blackwhite=False)
 
 
 def show(text, loops, time_delta, spaces):

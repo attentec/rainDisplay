@@ -61,6 +61,11 @@ class Display():
     def clear(self):
 	unicorn.clear()
 
+    def heart(self):
+	unicorn.rotation(180)
+	render_text.show_heart()
+	unicorn.rotation(0)
+
     def set_pixel(self, col, row, color, brightness_scale=1.0):
 	if brightness_scale > 1.0:
 	    brightness_scale = 1.0
