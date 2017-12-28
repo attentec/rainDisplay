@@ -35,4 +35,4 @@ if __name__ == '__main__':
         'lund': (55.7058, 13.1932),
     }
     smhi = Smhi(cities['lund'])
-    print smhi.get_rain_estimates()
+    print(smhi.get_rain_estimates())

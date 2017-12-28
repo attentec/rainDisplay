@@ -1,21 +1,39 @@
 import time
 from display import display
+from display.display import colors
 import weatherservices.smhi
 import geodata
 
-
+def rain_est_to_bars(est):
+    est = [x * 2 for x in est] # Show half mill as one bar
+    bars = [0] * 8
+    if len(est) <= 8:
+	bars = est
+    else:
+	for i in range(4):
+	    bars[i] = est[i]
+	for i in range(4, 8):
+	    est_i = ((i - 4) * 2 + 4)
+	    bars[i] = est[est_i] + est[est_i + 1]
+    return bars
 
 coord = geodata.get_coordinates()
 weather = weatherservices.smhi.Smhi(coord)
 print("lat: {}, lon: {}".format(weather.lat, weather.lon))
-disp = display.Display()
-disp.show_ip
-disp.show_text("Rain Display")
+disp = display.Display(brightness=0.2)
+# disp.show_ip
+disp.show_text("Rain")
 
 while True:
     rain_est = weather.get_rain_estimates()
     if rain_est is not None:
-        disp.show_bars(rain_est, disp.color['blue'])
+	rain_bars = rain_est_to_bars(rain_est)
+        disp.show_bars(rain_bars, colors['blue'])
+	disp.set_pixel(0, 3, colors['white'], brightness_scale=0.86)
+	disp.show()
+	disp.status_light(colors['blue'])
     else:
-        disp.show_bars([1], color=disp.color['red'])
-    time.sleep(60)
+	disp.clear()
+	disp.show_pixel(0, 3, colors['red'])
+    time.sleep(600)
+    # TODO: at random points, display msg

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 import random
 import time
@@ -8,15 +8,22 @@ import subprocess
 rows = 4
 columns = 8
 
-def render_text_matrix(text, spaces=6):
-    p = subprocess.Popen(["./figlet.sh", text.upper()], stdout=subprocess.PIPE)
+def render_text_matrix(text, spaces):
+    p = subprocess.Popen(["./display/figlet.sh", text.upper()], stdout=subprocess.PIPE)
     out, _ = p.communicate()
     space = " " * spaces
     matrix = [space + row + space for row in out.decode("utf-8").split("\n")[:rows]]
     return matrix
 
 
-def _get_color(char):
+def _get_color(char, color=(255, 255, 255)):
+    if char == " ":
+	return (0, 0, 0)
+    else:
+	return color
+
+
+def _get_multi_color(char):
     if char == "8":
         return (100, 100, 255)
     if char in "wbP":
@@ -41,13 +48,14 @@ def render_matrix_offset(matrix, offset):
     unicorn.show()
 
 
-def show(text="Hello world", loops=2, time_delta=0.1, spaces=6):
+def show(text, loops, time_delta, spaces):
     matrix = render_text_matrix(text, spaces)
+    assert len(matrix) == rows
     for i in range(loops):
         for offset in range(len(matrix[0]) - columns):
             render_matrix_offset(matrix, offset)
             time.sleep(time_delta)
-    
+
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
