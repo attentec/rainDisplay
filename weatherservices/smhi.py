@@ -1,7 +1,7 @@
 import requests
 import sys
 
-import weatherservice
+from weatherservices import weatherservice
 
 # http://opendata.smhi.se/apidocs/metfcst/get-forecast.html
 

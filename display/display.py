@@ -4,7 +4,7 @@ import numpy as np
 import time
 from subprocess import check_output
 
-import render_text
+from display import render_text
 
 colors = {
     'black': (0, 0, 0),
