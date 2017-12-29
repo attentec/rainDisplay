@@ -17,12 +17,11 @@ def rain_est_to_bars(est):
 	    bars[i] = est[est_i] + est[est_i + 1]
     return bars
 
-coord = geodata.get_coordinates()
-weather = weatherservices.smhi.Smhi(coord)
-print("lat: {}, lon: {}".format(weather.lat, weather.lon))
+loc = geodata.Location()
+loc.print()
+weather = weatherservices.smhi.Smhi(loc.coordinates)
 disp = display.Display(brightness=0.2)
-# disp.show_ip
-disp.show_text("Rain")
+disp.show_text(loc.city)
 
 while True:
     rain_est = weather.get_rain_estimates()
