@@ -1,3 +1,5 @@
 *.pyc
 weatherservices/*.json
 token.txt
+*.pi.py
+*.swp
