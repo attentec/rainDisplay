@@ -6,9 +6,6 @@ cities = {
     'lund': (55.7058, 13.1932),
 }
 
-# TODO: get token from settings file
-token = "3f9ee20ef054ba"
-
 
 class Location():
     def __init__(self, city=None):
@@ -19,8 +16,14 @@ class Location():
             self.coordinates = cities[city]
             self.ip = "IP unknown"
 
+    def get_token(self):
+        token = None
+        with open("token.txt", 'r') as f:
+            token = f.read()
+        return token
+
     def get_data(self):
-        ext_url = "http://ipinfo.io/?token={}".format(token)
+        ext_url = "http://ipinfo.io/?token={}".format(self.get_token())
         data = requests.get(ext_url).json()
         self.city = data['city']
         self.ip = data['ip']
