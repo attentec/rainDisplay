@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import abc
 
+
 class WeatherService():
     __metaclass__ = abc.ABCMeta
 

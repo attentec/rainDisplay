@@ -8,8 +8,8 @@ import subprocess
 rows = 4
 columns = 8
 
-#1234567
-heart="""
+# 234567
+heart = """
   R R   
  RRRRR  
   RRR   
@@ -17,11 +17,14 @@ heart="""
 """
 heart = [row for row in heart.split("\n")[1:rows+1]]
 
+
 def render_text_matrix(text, spaces):
-    p = subprocess.Popen(["./display/figlet.sh", text.upper()], stdout=subprocess.PIPE)
+    p = subprocess.Popen(["./display/figlet.sh", text.upper()],
+                         stdout=subprocess.PIPE)
     out, _ = p.communicate()
     space = " " * spaces
-    matrix = [space + row + space for row in out.decode("utf-8").split("\n")[:rows]]
+    matrix = [space + row + space for row in
+              out.decode("utf-8").split("\n")[:rows]]
     return matrix
 
 
@@ -89,4 +92,3 @@ if __name__ == '__main__':
         print("OUT", row, len(row))
     for row in heart:
         print("OUT", row, len(row))
-
