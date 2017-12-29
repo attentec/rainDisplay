@@ -1,10 +1,10 @@
-import urllib2
-import json
+import requests
 import sys
 
 import weatherservice
 
 # http://opendata.smhi.se/apidocs/metfcst/get-forecast.html
+
 
 class Smhi(weatherservice.WeatherService):
     def get_rain_estimates(self):
@@ -14,12 +14,11 @@ class Smhi(weatherservice.WeatherService):
         values = []
         smhi_url = "https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/{lon}/lat/{lat}/data.json".format(lon=self.lon, lat=self.lat)
         try:
-            response = urllib2.urlopen(smhi_url)
-            data = json.loads(response.read())
+            data = requests.get(smhi_url).json()
         except:
             print("Unexpected error:", sys.exc_info()[0])
             return None
-        
+
         timeseries = data['timeSeries']
         for ts in timeseries[:self.hours]:
             for p in ts['parameters']:
