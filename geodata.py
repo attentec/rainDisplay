@@ -11,8 +11,13 @@ token = "3f9ee20ef054ba"
 
 
 class Location():
-    def __init__(self):
-        self.get_data()
+    def __init__(self, city=None):
+        if city is None:
+            self.get_data()
+        else:
+            self.city = city
+            self.coordinates = cities[city]
+            self.ip = "IP unknown"
 
     def get_data(self):
         ext_url = "http://ipinfo.io/?token={}".format(token)
