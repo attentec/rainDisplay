@@ -43,12 +43,14 @@ class Display():
     def show_bars(self, values, color=colors['white']):
         for i in range(0, max(0, self.columns - len(values))):
             values.append(0)
-            values.reverse()
-            unicorn.clear()
-            for x in range(0, self.columns):
-                for y in range(int(math.ceil(values[x]))):
-                    self.set_pixel(x, y, color)
-            unicorn.show()
+
+        values.reverse()
+        unicorn.clear()
+
+        for x in range(0, self.columns):
+            for y in range(int(math.ceil(values[x]))):
+                self.set_pixel(x, y, color)
+        unicorn.show()
 
     def show_pixel(self, col, row, color):
         unicorn.clear()

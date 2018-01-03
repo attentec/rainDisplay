@@ -22,12 +22,13 @@ loc = geodata.Location()
 loc.print()
 weather = weatherservices.smhi.Smhi(loc.coordinates)
 disp = display.Display(brightness=0.2)
+disp.show_text(loc.city)
 
 while True:
-    disp.show_text(loc.city)
     rain_est = weather.get_rain_estimates()
     if rain_est is not None:
         rain_bars = rain_est_to_bars(rain_est)
+        print(rain_est)
         disp.show_bars(rain_bars, colors['blue'])
         disp.set_pixel(0, 3, colors['white'], brightness_scale=0.86)
         disp.show()
