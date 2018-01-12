@@ -8,7 +8,7 @@ from weatherservices import weatherservice
 
 class Smhi(weatherservice.WeatherService):
     def get_rain_estimates(self):
-        return self.get_data(data_point_name="pmean")
+        return self.get_data(data_point_name="pmax")
 
     def get_data(self, data_point_name):
         values = []
