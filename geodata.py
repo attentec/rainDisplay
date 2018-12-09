@@ -20,10 +20,10 @@ class Location():
         token = None
         with open("token.txt", 'r') as f:
             token = f.read()
-        return token
+        return token.strip()
 
     def get_data(self):
-        ext_url = "http://ipinfo.io/?token={}".format(self.get_token())
+        ext_url = "http://ipinfo.io/json?token={}".format(self.get_token())
         data = requests.get(ext_url).json()
         self.city = data['city']
         self.ip = data['ip']
