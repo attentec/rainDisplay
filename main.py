@@ -37,4 +37,9 @@ while True:
         disp.clear()
         disp.show_pixel(0, 3, colors['red'])
     time.sleep(600)
-    # TODO: at random points, display msg
+    disp.show_text("emilia")
+    disp.heart()
+    time.sleep(5)
+    disp.show_text("emilia")
+    disp.heart()
+    time.sleep(5)
